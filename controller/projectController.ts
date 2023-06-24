@@ -3,7 +3,7 @@ const cloudinary = require("../utils/cloudinary");
 import Project from "../models/projectModel";
 
 const addProject = async (req: Request, res: Response) => {
-  const { name, image, description } = req.body;
+  const { name, image, description, url, tags } = req.body;
 
   try {
     const result = await cloudinary.uploader.upload(image, {
@@ -17,6 +17,8 @@ const addProject = async (req: Request, res: Response) => {
         public_id: result.public_id,
         url: result.secure_url,
       },
+      url,
+      tags,
     });
 
     res.status(201).json({
